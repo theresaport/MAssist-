@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="row h-25%">
+      <h2>Marketing analysts that currently have no books</h2>
+      <div class="card-body">
+        <ag-grid-angular
+          #aggrid
+          style="width: 1000x; height: 350px"
+          class="ag-theme-alpine"
+          [animateRows]="true"
+          [rowData]="rowDataMarketAnalysts"
+          [columnDefs]="columnDefsMarketAnalysts"
+          rowSelection="single"
+        >
+        </ag-grid-angular>
+      </div>
+
+      <h2>Titles with no assigned analysts or no assigned materials</h2>
+      <div class="card-body">
+        <ag-grid-angular
+          #aggrid
+          style="width: 1000x; height: 350px"
+          class="ag-theme-alpine"
+          [animateRows]="true"
+          [rowData]="rowDataTitles"
+          [columnDefs]="columnDefsTitles"
+          rowSelection="single"
+          (rowClicked)="onRowClicked($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+    <div class="row">
+      <span class="border"></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,175 @@
+<div class="container">
+  <h2>Title Info</h2>
+
+  <hr />
+  <div *ngIf="title" class="row">
+    <div>
+      <label><b>Title: </b></label> {{ title.Title }}
+    </div>
+    <div>
+      <label><b>ISBN: </b></label> {{ title.ISBN }}
+    </div>
+    <div>
+      <label><b>Title: </b></label> {{ title.AuthorFirstName }}
+    </div>
+    <div>
+      <label><b>Author: </b></label> {{ title.AuthorLastName }}
+    </div>
+    <div>
+      <label><b>Publishing Date: </b></label>
+      {{ title.PublishDate | date: "MM/dd/yyyy" }}
+    </div>
+  </div>
+
+  <br />
+  <br />
+  <div class="container">
+    <div class="col-8">
+      <button
+        class="btn btn-outline-primary btn-space"
+        (click)="toggleShowHideMA(); viewAnalystsAssignedHistory()"
+      >
+        Marketing Analysts
+      </button>
+
+      <button
+        (click)="toggleShowHideMMA(); viewMarketMaterialsAssignedHistory()"
+        class="btn btn-outline-primary btn-space"
+      >
+        Marketing Materials
+      </button>
+    </div>
+
+    <!-- market analyst assigned to selected title -->
+    <div *ngIf="marketerAssignments && showAnlaystsAssigned">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2>Analaysts assigned to this title</h2>
+        </div>
+        <div class="panel-body">
+          <table
+            *ngIf="marketerAssignments && showAnlaystsAssigned"
+            class="table table-striped"
+          >
+            <thead>
+              <tr>
+                <th>BookId</th>
+                <th>MarketerId</th>
+                <th>StartDt</th>
+                <th>EndDt</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let ma of marketerAssignments">
+                <td>{{ ma.BookId }}</td>
+                <td>{{ ma.MarketerId }}</td>
+                <td>{{ ma.StartDt | date: "MM/dd/yyyy" }}</td>
+                <td>{{ ma.EndDt | date: "MM/dd/yyyy" }}</td>
+
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    (click)="removeAnalystFromTitle(ma)"
+                  >
+                    Remove Analyst
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <tr>
+            <td>
+              <button
+                (click)="addAnalystToTitle()"
+                class="btn btn-info btn-space"
+              >
+                Add Analyst To Title
+              </button>
+            </td>
+          </tr>
+        </div>
+
+        <div *ngIf="showAnlaystsAssigned && showAddAnlayst">
+          <app-add-analyst
+            [bookId]="bookId"
+            (analystAdded)="viewMarketAnalystAssignHistory($event)"
+          ></app-add-analyst>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- market materials assigned to selected title -->
+
+    <div *ngIf="marketMaterialAssignments && showMarketMaterialsAssigned">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2>Market Materials assigned to this title</h2>
+        </div>
+        <div class="panel-body;">
+          <table
+            *ngIf="marketMaterialAssignments && showMarketMaterialsAssigned"
+            class="table table-striped"
+          >
+            <thead>
+              <tr>
+                <!-- <th>Id</th> -->
+                <th>BookId</th>
+                <th>MarketMaterialId</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>StartDt</th>
+                <th>EndDt</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let mma of marketMaterialAssignments">
+                <!-- <td>{{ mma.Id }}</td> -->
+                <td>{{ mma.BookId }}</td>
+                <td>{{ mma.MarketerMaterialId }}</td>
+                <td>{{ mma.Name }}</td>
+                <td>{{ mma.Description }}</td>
+                <td>{{ mma.StartDt | date: "MM/dd/yyyy" }}</td>
+                <td>{{ mma.EndDt | date: "MM/dd/yyyy" }}</td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    (click)="removeMarketMaterialAssignment(mma)"
+                  >
+                    Remove Market Material
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <tr>
+            <td>
+              <button
+                (click)="addMarketMaterialToTitle()"
+                class="btn btn-info btn-space"
+              >
+                Add Market Material To Title
+              </button>
+            </td>
+          </tr>
+        </div>
+
+        <div *ngIf="showMarketMaterialsAssigned && showAddMarketMaterial">
+          <app-add-market-material
+            [bookId]="bookId"
+            (linkedClicked)="viewMAHistory($event)"
+          ></app-add-market-material>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <br />
+  <br />
+</div>

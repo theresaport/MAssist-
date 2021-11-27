@@ -1,0 +1,61 @@
+<div [hidden]="submitted" style="width: 400px">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Market Material</mat-label>
+        <select
+          matNativeControl
+          required
+          name="Id2"
+          [(ngModel)]="marketMaterialAssignment.MarketMaterialId"
+        >
+          <option *ngFor="let m of marketMaterials" [value]="m.Id">
+            {{ m.Name }}
+          </option>
+        </select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-datepicker-toggle
+        [for]="resultPickerStartDt"
+      ></mat-datepicker-toggle>
+      <mat-form-field>
+        <mat-label>Pick Start date</mat-label>
+        <input
+          matInput
+          matNativeControl
+          required
+          #resultPickerStartDtModel="ngModel"
+          [matDatepicker]="resultPickerStartDt"
+          [(ngModel)]="marketMaterialAssignment.StartDt"
+          name="StartDt"
+        />
+        <mat-datepicker #resultPickerStartDt> </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-datepicker-toggle [for]="resultPickerEndDt"></mat-datepicker-toggle>
+      <mat-form-field>
+        <mat-label>Pick End date</mat-label>
+        <input
+          matNativeControl
+          required
+          matInput
+          #resultPickerStartDtModel="ngModel"
+          [matDatepicker]="resultPickerEndDt"
+          [(ngModel)]="marketMaterialAssignment.EndDt"
+          name="StartDt"
+        />
+        <mat-datepicker #resultPickerEndDt> </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>
